@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#101018">
+  <title>GBA PLAYER WEB</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="GBA Player Web home">
+        <span class="brand-mark">GBA<span>+</span></span>
+        <span><strong>GBA PLAYER <em>WEB</em></strong><small>YOUR POCKET ARCADE</small></span>
+      </a>
+      <div class="top-actions">
+        <span class="status"><i id="statusDot"></i><span id="statusText">READY</span></span>
+        <button id="settingsBtn" class="icon-button" aria-label="Settings" title="Settings">⚙</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="eyebrow"><span></span> BROWSER-BASED EMULATION</div>
+        <h1>Your games.<br><span>Your browser.</span></h1>
+        <p>Bring your legally obtained Game Boy Advance games to life. Your ROM is selected from your device and is not uploaded to our server.</p>
+      </section>
+
+      <section class="workspace">
+        <div class="console-card">
+          <div class="console-topline">
+            <div><span class="live-dot"></span><span id="gameLabel">NO GAME SELECTED</span></div>
+            <span class="console-chip">GBA · 240 × 160</span>
+          </div>
+          <div class="screen-frame">
+            <div id="game" class="game-host">
+              <div class="screen-placeholder" id="placeholder">
+                <div class="pixel-logo">GBA<span>+</span></div>
+                <div class="placeholder-title">READY PLAYER ONE?</div>
+                <p>Choose a ROM file to begin</p>
+                <div class="screen-scanlines"></div>
+              </div>
+            </div>
+            <div class="screen-overlay" id="loadingOverlay" hidden>
+              <div class="spinner"></div><strong>INITIALIZING EMULATOR</strong><span id="loadingMessage">Preparing your game…</span>
+            </div>
+          </div>
+          <div class="console-bottomline">
+            <span><i class="tiny-led"></i> LOCAL SESSION</span>
+            <span id="fileLabel">No ROM loaded</span>
+          </div>
+        </div>
+
+        <aside class="control-panel">
+          <div class="panel-heading"><div><span class="eyebrow">GAME SESSION</span><h2>Player controls</h2></div><span class="panel-icon">⌘</span></div>
+          <label class="file-drop" id="dropZone" for="romInput">
+            <input id="romInput" type="file" accept=".gba,.zip,application/zip,application/octet-stream">
+            <span class="upload-icon">↑</span>
+            <strong>Load a ROM</strong>
+            <span>Drop a .gba or .zip file here</span>
+            <small>Files stay on your device</small>
+          </label>
+          <div class="selected-file" id="selectedFile" hidden>
+            <span class="file-icon">▣</span><div><strong id="selectedName">game.gba</strong><small id="selectedMeta">Ready to start</small></div><button id="clearRom" class="mini-clear" aria-label="Remove selected ROM">×</button>
+          </div>
+          <div class="button-stack">
+            <button id="startBtn" class="primary-button" disabled><span>▶</span> Start game</button>
+            <button id="pauseBtn" class="secondary-button" disabled><span>Ⅱ</span> Pause / Resume</button>
+            <button id="restartBtn" class="secondary-button" disabled><span>↻</span> Restart game</button>
+            <button id="fullscreenBtn" class="secondary-button" disabled><span>⛶</span> Fullscreen</button>
+          </div>
+          <div class="panel-divider"></div>
+          <div class="audio-row"><div><strong>Audio</strong><small>Emulator volume</small></div><button id="muteBtn" class="mute-button" aria-label="Mute audio">♫</button></div>
+          <input id="volume" class="volume-slider" type="range" min="0" max="100" value="75" aria-label="Audio volume">
+          <div class="volume-scale"><span>0%</span><span id="volumeValue">75%</span><span>100%</span></div>
+          <div class="notice" id="notice" role="status">Select a ROM file you are legally permitted to use.</div>
+        </aside>
+      </section>
+
+      <section class="lower-grid">
+        <article class="info-card">
+          <div class="info-icon green">⌨</div><div><h3>Keyboard ready</h3><p>Arrow keys move · Z / X are A / B · A / S are L / R · Enter starts · Right Shift selects.</p></div>
+        </article>
+        <article class="info-card">
+          <div class="info-icon purple">▦</div><div><h3>Touch-friendly</h3><p>EmulatorJS supplies its own on-screen controls for touch devices when supported by the selected core.</p></div>
+        </article>
+        <article class="info-card">
+          <div class="info-icon green">◈</div><div><h3>Private by design</h3><p>This page creates a local browser object URL for the chosen ROM. The emulator engine itself is loaded from its public CDN.</p></div>
+        </article>
+      </section>
+      <footer><span>GBA PLAYER WEB</span><span>Made for homebrew & legally obtained ROMs</span></footer>
+    </main>
+  </div>
+
+  <dialog id="settingsDialog">
+    <form method="dialog" class="settings-content">
+      <div class="dialog-head"><div><span class="eyebrow">PREFERENCES</span><h2>Settings</h2></div><button class="icon-button" aria-label="Close settings">×</button></div>
+      <label class="setting-row"><span><strong>Pixel-perfect scaling</strong><small>Keep the classic GBA screen crisp</small></span><input id="pixelPerfect" type="checkbox" checked></label>
+      <label class="setting-row"><span><strong>Show emulator interface</strong><small>Keep EmulatorJS menus available</small></span><input id="showEmulatorUi" type="checkbox" checked></label>
+      <p class="settings-note">Save files and save states are managed by the emulator core's built-in interface. Availability and browser storage behavior depend on the selected EmulatorJS build.</p>
+      <button class="primary-button" value="close">Done</button>
+    </form>
+  </dialog>
+  <script src="./app.js"></script>
+</body>
+</html>
